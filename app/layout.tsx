@@ -57,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             "description": "Hire a Tutor offers live academic help, assignments, tutoring, and test prep from expert tutors across disciplines.",
             "founder": {
               "@type": "Person",
-              "name": "Brian Njata"
+              "name": "Alliasgher"
             }
           })
         }} />
@@ -72,6 +72,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', 'G-BE1QZRHVC2');
           `
         }} />
+
+        {/* Trustpilot Widget Script */}
+        <script
+          type="text/javascript"
+          src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js"
+          async
+        ></script>
       </Head>
       <body className="bg-black text-white font-sans overflow-x-hidden h-full">
         <div className="flex flex-col min-h-screen">

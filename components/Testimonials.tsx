@@ -264,6 +264,24 @@ export default function Testimonials() {
             Join Our Discord to Leave a Review
           </a>
         </motion.div>
+
+        {/* ✅ Trustpilot TrustBox */}
+        <div
+          className="trustpilot-widget mt-16"
+          data-locale="en-US"
+          data-template-id="56278e9abfbbba0bdcd568bc"
+          data-businessunit-id="685efedc8bd00641e4910f8c"
+          data-style-height="52px"
+          data-style-width="100%"
+        >
+          <a
+            href="https://www.trustpilot.com/review/hireatutornow.com"
+            target="_blank"
+            rel="noopener"
+          >
+            Trustpilot
+          </a>
+        </div>
       </div>
     </section>
   );
