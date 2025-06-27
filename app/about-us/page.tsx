@@ -113,7 +113,7 @@ export default function AboutUsPage() {
 
 // === COMPONENTS ===
 
-function StatCard({ icon, value, label }: { icon: JSX.Element; value: string; label: string }) {
+function StatCard({ icon, value, label }: { icon: React.ReactNode; value: string; label: string }) {
   return (
     <motion.div
       className="flex flex-col items-center"
@@ -153,5 +153,4 @@ function WaveDivider({ color = '#101f33' }: { color?: string }) {
     </div>
   );
 }
-
 
