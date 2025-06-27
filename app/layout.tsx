@@ -61,6 +61,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }
           })
         }} />
+
+        {/* Google Analytics Tag */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-BE1QZRHVC2"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-BE1QZRHVC2');
+          `
+        }} />
       </Head>
       <body className="bg-black text-white font-sans overflow-x-hidden h-full">
         <div className="flex flex-col min-h-screen">
