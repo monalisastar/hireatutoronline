@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === CSS Variables Setup === */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+/* === Anchor Utility Class === */
+.link {
+  @apply text-blue-400 hover:underline;
+}
+
+/* === Glassmorphism Reusable Class === */
+.glass {
+  @apply bg-glass backdrop-blur-md shadow-glass rounded-2xl border border-white/10;
+}
+
+/* === Full-Height Setup === */
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* === Background-Video Utility === */
+video.bg-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -10;
+  opacity: 0.7; /* Optional: dim background */
+}
+
+/* === Hero Container Layer === */
+.hero-container {
+  position: relative;
+  z-index: 10;
+}
+
+/* === Glassmorphism Utilities === */
+@layer utilities {
+  /* frosted-glass background */
+  .bg-glass {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  /* soft glass shadow */
+  .shadow-glass {
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  }
+}
+

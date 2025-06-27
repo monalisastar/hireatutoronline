@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "image": "/images/review1.jpg",
+    "highlight": "Delivered my assignment on time and with great quality!",
+    "timestamp": "2025-06-19T15:00:00Z"
+  },
+  {
+    "id": 2,
+    "image": "/images/review2.jpg",
+    "highlight": "Superb tutoring session. I finally understood calculus!",
+    "timestamp": "2025-06-20T10:30:00Z"
+  },
+  {
+    "id": 3,
+    "image": "/images/review3.jpg",
+    "highlight": "Quick response and professional help throughout the process.",
+    "timestamp": "2025-06-18T18:45:00Z"
+  },
+  {
+    "id": 4,
+    "image": "/images/review4.jpg",
+    "highlight": "The tutor explained complex topics in a very simple way.",
+    "timestamp": "2025-06-20T12:10:00Z"
+  }
+]
