@@ -34,7 +34,9 @@ const getAllPosts = (): PostMeta[] => {
     });
 };
 
-export async function generateMetadata({ params }: { params: { tag: string } }) {
+// ✅ Fix type error by using props: any
+export async function generateMetadata(props: any) {
+  const { params } = props as { params: { tag: string } };
   const tag = decodeURIComponent(params.tag);
   const title = `Posts tagged with #${tag}`;
   const description = `Browse all blog posts related to ${tag} on Hire a Tutor Blog.`;
@@ -56,7 +58,9 @@ export async function generateMetadata({ params }: { params: { tag: string } }) 
   };
 }
 
-export default function TagPage({ params }: { params: { tag: string } }) {
+// ✅ Fix Vercel constraint with props: any
+export default function TagPage(props: any) {
+  const { params } = props as { params: { tag: string } };
   const tag = decodeURIComponent(params.tag);
   const allPosts = getAllPosts();
 
