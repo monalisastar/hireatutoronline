@@ -4,6 +4,7 @@ import fs from "fs";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Script from "next/script";
+import { Metadata } from "next"; // ✅ Added for type
 
 type FrontMatter = {
   title: string;
@@ -32,8 +33,8 @@ export async function generateStaticParams() {
     }));
 }
 
-// ✅ Metadata with correct type
-export async function generateMetadata({ params }: PageProps) {
+// ✅ Metadata with explicit return type
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
   if (!fs.existsSync(filePath)) return { title: "Post Not Found" };
 
