@@ -13,15 +13,16 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "types": ["react"],                         // ✅ Add this line
+    "types": ["react"],
+    "baseUrl": ".",                     // ✅ Add this line
+    "paths": {
+      "@/*": ["app/*"]                 // ✅ Now this is valid
+    },
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    "paths": {
-      "@/*": ["./*"]
-    }
+    ]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
