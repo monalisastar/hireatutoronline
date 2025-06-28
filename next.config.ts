@@ -1,4 +1,10 @@
 import type { NextConfig } from "next";
+import withMDX from "@next/mdx";
+
+// Extend with MDX support
+const withMDXConfig = withMDX({
+  extension: /\.mdx?$/,
+});
 
 const nextConfig: NextConfig = {
   images: {
@@ -15,7 +21,8 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
+  pageExtensions: ["ts", "tsx", "mdx"], // Add mdx support
 };
 
-export default nextConfig;
+export default withMDXConfig(nextConfig);
 

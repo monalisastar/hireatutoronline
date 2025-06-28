@@ -64,6 +64,11 @@ export default function NavBar() {
               </Link>
             </li>
             <li>
+              <Link href="/blog" className="hover:text-blue-400">
+                Blog
+              </Link>
+            </li>
+            <li>
               <Link
                 href="https://discord.gg/tWXsGZrUX9"
                 target="_blank"
@@ -79,5 +84,4 @@ export default function NavBar() {
     </header>
   );
 }
-
 
