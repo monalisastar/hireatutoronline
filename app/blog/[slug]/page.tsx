@@ -14,13 +14,6 @@ type FrontMatter = {
   coverImage?: string;
 };
 
-// ✅ Renamed interface to avoid conflict with Vercel types
-interface BlogPageProps {
-  params: {
-    slug: string;
-  };
-}
-
 export async function generateStaticParams() {
   const blogDir = path.join(process.cwd(), "content/blog");
   const files = fs.readdirSync(blogDir);
@@ -32,7 +25,12 @@ export async function generateStaticParams() {
     }));
 }
 
-export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
+// ✅ Inline `params` type to bypass Vercel's PageProps constraint
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
   if (!fs.existsSync(filePath)) return { title: "Post Not Found" };
 
@@ -86,7 +84,12 @@ export async function generateMetadata({ params }: BlogPageProps): Promise<Metad
   };
 }
 
-export default async function BlogPost({ params }: BlogPageProps) {
+// ✅ Inline `params` type here as well
+export default async function BlogPost({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
   if (!fs.existsSync(filePath)) notFound();
 
@@ -155,5 +158,4 @@ export default async function BlogPost({ params }: BlogPageProps) {
     </div>
   );
 }
-
 
