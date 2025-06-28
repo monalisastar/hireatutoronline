@@ -1,42 +1,8 @@
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
 import Link from 'next/link';
-
-type PostMeta = {
-  title: string;
-  date: string;
-  slug: string;
-  excerpt?: string;
-  coverImage?: string;
-  tags?: string[];
-};
-
-function getAllPosts(): PostMeta[] {
-  const postsDir = path.join(process.cwd(), 'content/blog');
-  const files = fs.readdirSync(postsDir);
-
-  return files
-    .filter((file) => file.endsWith('.mdx.md'))
-    .map((file) => {
-      const slug = file.replace(/\.mdx\.md$/, '');
-      const content = fs.readFileSync(path.join(postsDir, file), 'utf8');
-      const { data } = matter(content);
-      return {
-        title: data.title || slug,
-        date: data.date || '',
-        slug,
-        excerpt: content.split('\n').slice(4, 8).join(' '),
-        coverImage: data.coverImage || '',
-        tags: data.tags || [],
-      };
-    })
-    .sort((a, b) => (a.date < b.date ? 1 : -1));
-}
+import { getAllPosts } from '@/lib/getAllPosts';
 
 export default function BlogPage() {
   const allPosts = getAllPosts();
-
   const featured = allPosts[0];
   const rest = allPosts.slice(1);
   const hasMore = false;
@@ -84,16 +50,33 @@ export default function BlogPage() {
                   className="w-full h-40 object-cover rounded-lg mb-3"
                 />
               )}
-              <h3 className="text-xl font-semibold group-hover:text-blue-400 transition">{post.title}</h3>
-              <p className="text-sm text-gray-400">{new Date(post.date).toDateString()}</p>
+              <h3 className="text-xl font-semibold group-hover:text-blue-400 transition">
+                {post.title}
+              </h3>
+              <p className="text-sm text-gray-400">
+                {new Date(post.date).toDateString()}
+              </p>
               <p className="text-sm text-white/80 mt-2">{post.excerpt}</p>
             </div>
           </Link>
         ))}
       </section>
 
+      {hasMore && (
+        <div className="text-center mt-12">
+          <Link
+            href="/blog/page/2"
+            className="text-blue-400 underline hover:text-blue-500"
+          >
+            View More Posts →
+          </Link>
+        </div>
+      )}
+
       <section className="text-center mt-20">
-        <h2 className="text-2xl font-bold mb-2">🎓 Join 500+ learners on our Discord</h2>
+        <h2 className="text-2xl font-bold mb-2">
+          🎓 Join 500+ learners on our Discord
+        </h2>
         <Link
           href="https://discord.gg/tWXsGZrUX9"
           target="_blank"
@@ -105,5 +88,4 @@ export default function BlogPage() {
     </main>
   );
 }
-
 
