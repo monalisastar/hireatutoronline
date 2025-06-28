@@ -1,8 +1,11 @@
+
+
 import path from "path";
 import matter from "gray-matter";
 import fs from "fs";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 
 type FrontMatter = {
   title: string;
@@ -80,6 +83,18 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-12 text-white">
+      {/* ✅ Google AdSense Script (only shown on blog pages) */}
+      <Script
+        id="adsense-script"
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        strategy="afterInteractive"
+      />
+      <Script id="adsense-init" strategy="afterInteractive">
+        {`(adsbygoogle = window.adsbygoogle || []).push({});`}
+      </Script>
+
+      {/* ✅ Blog Header */}
       {frontMatter.coverImage && (
         <div className="mb-6 rounded overflow-hidden">
           <Image
@@ -97,6 +112,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         {new Date(frontMatter.date).toDateString()} — 🔥 By {frontMatter.author}
       </p>
 
+      {/* ✅ Tags */}
       {frontMatter.tags && (
         <div className="flex gap-2 flex-wrap mb-6">
           {frontMatter.tags.map((tag) => (
@@ -107,10 +123,12 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         </div>
       )}
 
+      {/* ✅ Content */}
       <article className="prose prose-invert prose-blue max-w-none text-lg">
         <MDXContent />
       </article>
 
+      {/* ✅ Share Link */}
       <div className="mt-8 border-t border-white/10 pt-4 text-sm text-white/60">
         📤 Share this post:
         <button
