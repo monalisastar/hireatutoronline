@@ -89,7 +89,13 @@ export default async function BlogPost(props: any) {
   const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx`);
   if (!fs.existsSync(filePath)) notFound();
 
-  const { default: MDXContent } = await import(`@/content/blog/${params.slug}.mdx`);
+  let MDXContent;
+  try {
+    MDXContent = (await import(`../../../../content/blog/${params.slug}.mdx`)).default;
+  } catch (err) {
+    notFound();
+  }
+
   const fileContent = fs.readFileSync(filePath, "utf8");
   const { data } = matter(fileContent);
   const frontMatter = data as FrontMatter;
