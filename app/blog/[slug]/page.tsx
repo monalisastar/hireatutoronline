@@ -19,17 +19,17 @@ export async function generateStaticParams() {
   const files = fs.readdirSync(blogDir);
 
   return files
-    .filter((file) => file.endsWith(".mdx.md"))
+    .filter((file) => file.endsWith(".mdx")) // ✅ use `.mdx` now
     .map((file) => ({
-      slug: file.replace(/\.mdx\.md$/, ""),
+      slug: file.replace(/\.mdx$/, ""),
     }));
 }
 
-// ✅ Use `props: any` to bypass Vercel type conflict
+// ✅ props as any for Vercel constraint bypass
 export async function generateMetadata(props: any): Promise<Metadata> {
   const { params } = props as { params: { slug: string } };
 
-  const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
+  const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx`);
   if (!fs.existsSync(filePath)) return { title: "Post Not Found" };
 
   const fileContent = fs.readFileSync(filePath, "utf8");
@@ -82,14 +82,14 @@ export async function generateMetadata(props: any): Promise<Metadata> {
   };
 }
 
-// ✅ Use `props: any` here too
+// ✅ Main blog component
 export default async function BlogPost(props: any) {
   const { params } = props as { params: { slug: string } };
 
-  const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
+  const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx`);
   if (!fs.existsSync(filePath)) notFound();
 
-  const { default: MDXContent } = await import(`@/content/blog/${params.slug}.mdx.md`);
+  const { default: MDXContent } = await import(`@/content/blog/${params.slug}.mdx`);
   const fileContent = fs.readFileSync(filePath, "utf8");
   const { data } = matter(fileContent);
   const frontMatter = data as FrontMatter;
