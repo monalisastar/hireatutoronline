@@ -25,12 +25,10 @@ export async function generateStaticParams() {
     }));
 }
 
-// ✅ Inline `params` type to bypass Vercel's PageProps constraint
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+// ✅ Use `props: any` to bypass Vercel type conflict
+export async function generateMetadata(props: any): Promise<Metadata> {
+  const { params } = props as { params: { slug: string } };
+
   const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
   if (!fs.existsSync(filePath)) return { title: "Post Not Found" };
 
@@ -84,12 +82,10 @@ export async function generateMetadata({
   };
 }
 
-// ✅ Inline `params` type here as well
-export default async function BlogPost({
-  params,
-}: {
-  params: { slug: string };
-}) {
+// ✅ Use `props: any` here too
+export default async function BlogPost(props: any) {
+  const { params } = props as { params: { slug: string } };
+
   const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
   if (!fs.existsSync(filePath)) notFound();
 
