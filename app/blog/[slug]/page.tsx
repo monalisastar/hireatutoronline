@@ -13,6 +13,13 @@ type FrontMatter = {
   coverImage?: string;
 };
 
+// ✅ Define correct PageProps interface
+interface PageProps {
+  params: {
+    slug: string;
+  };
+}
+
 // ✅ Required for static generation of all slugs
 export async function generateStaticParams() {
   const blogDir = path.join(process.cwd(), "content/blog");
@@ -25,8 +32,8 @@ export async function generateStaticParams() {
     }));
 }
 
-// ✅ Metadata (already correct)
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+// ✅ Metadata with correct type
+export async function generateMetadata({ params }: PageProps) {
   const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
   if (!fs.existsSync(filePath)) return { title: "Post Not Found" };
 
@@ -80,12 +87,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-// ✅ Page component with correct type
-export default async function BlogPost({
-  params,
-}: {
-  params: { slug: string };
-}) {
+// ✅ Blog Page Component with correct type
+export default async function BlogPost({ params }: PageProps) {
   const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
   if (!fs.existsSync(filePath)) notFound();
 
@@ -154,4 +157,5 @@ export default async function BlogPost({
     </div>
   );
 }
+
 
