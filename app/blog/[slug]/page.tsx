@@ -1,5 +1,3 @@
-
-
 import path from "path";
 import matter from "gray-matter";
 import fs from "fs";
@@ -15,8 +13,21 @@ type FrontMatter = {
   coverImage?: string;
 };
 
+// ✅ Required for static generation of all slugs
+export async function generateStaticParams() {
+  const blogDir = path.join(process.cwd(), "content/blog");
+  const files = fs.readdirSync(blogDir);
+
+  return files
+    .filter((file) => file.endsWith(".mdx.md"))
+    .map((file) => ({
+      slug: file.replace(/\.mdx\.md$/, ""),
+    }));
+}
+
+// ✅ Metadata (already correct)
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx`);
+  const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
   if (!fs.existsSync(filePath)) return { title: "Post Not Found" };
 
   const fileContent = fs.readFileSync(filePath, "utf8");
@@ -31,30 +42,32 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: frontMatter.title,
       description: `Insights from our tutors: ${frontMatter.title}`,
-      type: 'article',
+      type: "article",
       url,
       images: frontMatter.coverImage
         ? [{ url: `https://hireatutornow.com${frontMatter.coverImage}` }]
         : [],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: frontMatter.title,
       description: `Academic tips: ${frontMatter.title}`,
-      images: frontMatter.coverImage ? [`https://hireatutornow.com${frontMatter.coverImage}`] : [],
+      images: frontMatter.coverImage
+        ? [`https://hireatutornow.com${frontMatter.coverImage}`]
+        : [],
     },
     metadataBase: new URL(url),
     alternates: {
       canonical: url,
     },
     other: {
-      'application/ld+json': JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'BlogPosting',
+      "application/ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
         headline: frontMatter.title,
         datePublished: frontMatter.date,
         author: {
-          '@type': 'Person',
+          "@type": "Person",
           name: frontMatter.author,
         },
         image: frontMatter.coverImage
@@ -67,11 +80,16 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx`);
+// ✅ Page component with correct type
+export default async function BlogPost({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
   if (!fs.existsSync(filePath)) notFound();
 
-  const { default: MDXContent } = await import(`@/content/blog/${params.slug}.mdx`);
+  const { default: MDXContent } = await import(`@/content/blog/${params.slug}.mdx.md`);
   const fileContent = fs.readFileSync(filePath, "utf8");
   const { data } = matter(fileContent);
   const frontMatter = data as FrontMatter;
@@ -83,7 +101,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-12 text-white">
-      {/* ✅ Google AdSense Script (only shown on blog pages) */}
       <Script
         id="adsense-script"
         async
@@ -94,7 +111,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         {`(adsbygoogle = window.adsbygoogle || []).push({});`}
       </Script>
 
-      {/* ✅ Blog Header */}
       {frontMatter.coverImage && (
         <div className="mb-6 rounded overflow-hidden">
           <Image
@@ -112,7 +128,6 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         {new Date(frontMatter.date).toDateString()} — 🔥 By {frontMatter.author}
       </p>
 
-      {/* ✅ Tags */}
       {frontMatter.tags && (
         <div className="flex gap-2 flex-wrap mb-6">
           {frontMatter.tags.map((tag) => (
@@ -123,12 +138,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         </div>
       )}
 
-      {/* ✅ Content */}
       <article className="prose prose-invert prose-blue max-w-none text-lg">
         <MDXContent />
       </article>
 
-      {/* ✅ Share Link */}
       <div className="mt-8 border-t border-white/10 pt-4 text-sm text-white/60">
         📤 Share this post:
         <button
