@@ -1,16 +1,46 @@
 // app/page.tsx
 
 export const metadata = {
-  title: 'Hire A Tutor | Expert Tutoring in Essays, Programming, Python & More',
-  description: 'Connect instantly with top tutors for help in essays, programming, Python, math, web development, exam prep, and assignments. Trusted by 2000+ students globally.',
-  keywords: 'hire tutor, essay help, assignment help, programming tutor, Python tutoring, math help, science tutoring, live tutoring, online tutor, homework help, GRE, SAT, web development',
+  title: "Hire a Tutor Now – Global Tutoring, Essays, Math & Programming Help",
+  description:
+    "Top-rated online tutoring for students in California, New York, and Minnesota. Also serving Canada, the UK, Europe, and China. Get expert help with math, essay writing, programming, assignments, homework solutions, and test prep from trusted tutors worldwide.",
+  keywords: [
+    // Regional + Local SEO
+    "hire a tutor USA",
+    "California online tutor",
+    "New York math help",
+    "Minnesota essay assistance",
+    "essay help UK",
+    "online math tutor Canada",
+    "programming help Europe",
+    "homework help China",
+    "essay help New York",
+    "programming tutor Minnesota",
+    "Python tutor California",
+    "SAT prep New York",
+    "assignment help Minnesota",
+    "calculus tutoring USA",
+
+    // General Services (retained + updated)
+    "hire a tutor",
+    "essayhelp",
+    "mathhelp",
+    "assignmenthelp",
+    "homework",
+    "homework solutions",
+    "programmingtutoring",
+    "Python tutor online",
+    "SAT test prep tutor",
+    "college essay writing help",
+    "assignment support global"
+  ],
   robots: 'index, follow',
   alternates: {
     canonical: 'https://hireatutornow.com',
   },
   openGraph: {
     title: 'Hire A Tutor | Essay Help, Python & Programming Tutors Online',
-    description: 'Get real-time help with essays, assignments, Python, programming, and more. Connect with expert tutors trusted by 2000+ students.',
+    description: 'Get real-time help with essays, assignments, Python, programming, and more. Connect with expert tutors trusted by 2,000+ students.',
     url: 'https://hireatutornow.com',
     siteName: 'Hire A Tutor',
     type: 'website',
