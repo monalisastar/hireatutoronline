@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getAllPosts } from '@/lib/getAllPosts';
 
 export default function BlogPage() {
@@ -23,9 +24,11 @@ export default function BlogPage() {
           <Link href={`/blog/${featured.slug}`}>
             <div className="cursor-pointer">
               {featured.coverImage && (
-                <img
+                <Image
                   src={featured.coverImage}
                   alt={featured.title}
+                  width={1200}
+                  height={600}
                   className="w-full h-64 object-cover rounded-xl mb-4"
                 />
               )}
@@ -44,9 +47,11 @@ export default function BlogPage() {
           <Link key={post.slug} href={`/blog/${post.slug}`}>
             <div className="group bg-white/5 hover:bg-white/10 transition backdrop-blur rounded-xl p-6 cursor-pointer hover:shadow-md hover:scale-[1.02] duration-300">
               {post.coverImage && (
-                <img
+                <Image
                   src={post.coverImage}
                   alt={post.title}
+                  width={800}
+                  height={400}
                   className="w-full h-40 object-cover rounded-lg mb-3"
                 />
               )}
