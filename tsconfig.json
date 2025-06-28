@@ -14,9 +14,9 @@
     "jsx": "preserve",
     "incremental": true,
     "types": ["react"],
-    "baseUrl": ".",                     // ✅ Add this line
+    "baseUrl": ".",                          // ✅ Points to root
     "paths": {
-      "@/*": ["app/*"]                 // ✅ Now this is valid
+      "@/*": ["./*"]                         // ✅ Maps @/ to root folders like components/, lib/
     },
     "plugins": [
       {
