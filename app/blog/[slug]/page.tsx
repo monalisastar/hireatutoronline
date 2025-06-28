@@ -4,7 +4,7 @@ import fs from "fs";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Script from "next/script";
-import { Metadata } from "next"; // ✅ Added for type
+import { Metadata } from "next";
 
 type FrontMatter = {
   title: string;
@@ -14,14 +14,13 @@ type FrontMatter = {
   coverImage?: string;
 };
 
-// ✅ Define correct PageProps interface
-interface PageProps {
+// ✅ Renamed interface to avoid conflict with Vercel types
+interface BlogPageProps {
   params: {
     slug: string;
   };
 }
 
-// ✅ Required for static generation of all slugs
 export async function generateStaticParams() {
   const blogDir = path.join(process.cwd(), "content/blog");
   const files = fs.readdirSync(blogDir);
@@ -33,8 +32,7 @@ export async function generateStaticParams() {
     }));
 }
 
-// ✅ Metadata with explicit return type
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params }: BlogPageProps): Promise<Metadata> {
   const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
   if (!fs.existsSync(filePath)) return { title: "Post Not Found" };
 
@@ -88,8 +86,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-// ✅ Blog Page Component with correct type
-export default async function BlogPost({ params }: PageProps) {
+export default async function BlogPost({ params }: BlogPageProps) {
   const filePath = path.join(process.cwd(), "content/blog", `${params.slug}.mdx.md`);
   if (!fs.existsSync(filePath)) notFound();
 
